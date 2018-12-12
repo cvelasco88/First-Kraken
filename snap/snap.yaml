@@ -1,0 +1,26 @@
+name: kraken
+version: '1.0.0'
+summary: Application for Mind Mapping, Knowledge and Project Management
+description: |
+  kraken is a free and open source software application that supports
+  thinking, sharing information and getting things done at work, in school
+  and at home. The core of the software is tools for mind mapping (also
+  known as concept mapping or information mapping) and using mapped
+  information.
+
+confinement: devmode
+
+apps:
+  kraken:
+    command: java -jar $SNAP/kraken-1.0.0/kraken.jar
+
+parts:
+  kraken:
+    after: [desktop-glib-only]
+    plugin: gradle
+    source: .
+    build: |
+      export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+      gradle release -x test -x createGitTag
+    build-packages:
+      - openjdk-8-jdk
