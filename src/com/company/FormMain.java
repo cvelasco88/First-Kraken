@@ -19,7 +19,7 @@ public class FormMain extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
-                JOptionPane.showMessageDialog(rootPanel, "Hello World!" );
+                JOptionPane.showMessageDialog(rootPanel, "Hello World! :)" );
             }
         });
 

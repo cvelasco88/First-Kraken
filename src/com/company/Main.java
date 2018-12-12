@@ -10,52 +10,49 @@ public class Main {
 	    // write your code here
         System.out.println("Hello World!");
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
+        SwingUtilities.invokeLater(() -> {
 
-                try {
-                    // Set cross-platform Java L&F (also called "Metal")
-                    UIManager.setLookAndFeel(
-                            UIManager.getCrossPlatformLookAndFeelClassName());
-                }
-                catch (UnsupportedLookAndFeelException e) {
-                    // handle exception
-                }
-                catch (ClassNotFoundException e) {
-                    // handle exception
-                }
-                catch (InstantiationException e) {
-                    // handle exception
-                }
-                catch (IllegalAccessException e) {
-                    // handle exception
-                }
-
-                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("com.sun.java.swing.plaf.gtk.GTKLookAndFeel".equals(info.getClassName())) {
-                        try {
-                            UIManager.setLookAndFeel(info.getClassName());
-
-                        } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                        } catch (InstantiationException e) {
-                            e.printStackTrace();
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        } catch (UnsupportedLookAndFeelException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    }
-                }
-
-                FormMain form = new FormMain();
-                form.setVisible(true);
+            try {
+                // Set cross-platform Java L&F (also called "Metal")
+                UIManager.setLookAndFeel(
+                        UIManager.getCrossPlatformLookAndFeelClassName());
             }
+            catch (UnsupportedLookAndFeelException e) {
+                // handle exception
+            }
+            catch (ClassNotFoundException e) {
+                // handle exception
+            }
+            catch (InstantiationException e) {
+                // handle exception
+            }
+            catch (IllegalAccessException e) {
+                // handle exception
+            }
+
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("com.sun.java.swing.plaf.gtk.GTKLookAndFeel".equals(info.getClassName())) {
+                    try {
+                        UIManager.setLookAndFeel(info.getClassName());
+
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (InstantiationException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (UnsupportedLookAndFeelException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+            }
+
+            FormMain form = new FormMain();
+            form.setVisible(true);
         });
 
-        System.out.println("Bye Bye!");
+        System.out.println("Bye Bye World!");
 
     }
 
