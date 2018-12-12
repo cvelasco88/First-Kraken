@@ -2,6 +2,7 @@ package com.company;
 
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Main {
 
@@ -13,7 +14,43 @@ public class Main {
             @Override
             public void run() {
 
-                FormTwo form = new FormTwo();
+                try {
+                    // Set cross-platform Java L&F (also called "Metal")
+                    UIManager.setLookAndFeel(
+                            UIManager.getCrossPlatformLookAndFeelClassName());
+                }
+                catch (UnsupportedLookAndFeelException e) {
+                    // handle exception
+                }
+                catch (ClassNotFoundException e) {
+                    // handle exception
+                }
+                catch (InstantiationException e) {
+                    // handle exception
+                }
+                catch (IllegalAccessException e) {
+                    // handle exception
+                }
+
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("com.sun.java.swing.plaf.gtk.GTKLookAndFeel".equals(info.getClassName())) {
+                        try {
+                            UIManager.setLookAndFeel(info.getClassName());
+
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (InstantiationException e) {
+                            e.printStackTrace();
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        } catch (UnsupportedLookAndFeelException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    }
+                }
+
+                FormMain form = new FormMain();
                 form.setVisible(true);
             }
         });
