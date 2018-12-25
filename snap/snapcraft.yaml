@@ -13,15 +13,26 @@ confinement: strict # use 'strict' once you have the right plugs and slots
 
 apps:
   kraken-hello-world-hollowsaibot:
-    command: java -jar $SNAP/local/kraken.jar
+    command: MakeFile.sh
 
 parts:
+  my-service:
+    plugin: dump
+    source: out/
   kraken-hello-world-hollowsaibot:
     # See 'snapcraft plugins'
     plugin: autotools
     source: .
     override-build: |
-      export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"ç
+      export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
     build-packages:
       - openjdk-8-jdk
       - openjdk-8-jre
+  # It will copy wallpaperdownloader script into /bin/
+  # This script contains all the commands needed (sets env variables, launches the jar file...) to
+  # execute the application
+  wrapper:
+    plugin: dump
+    source: .
+    organize:
+      /MakeFile.sh: bin/MakeFile.sh

@@ -134,6 +134,9 @@
   <property name="project.jdk.home" value="${jdk.home.11}"/>
   <property name="project.jdk.bin" value="${jdk.bin.11}"/>
   <property name="project.jdk.classpath" value="jdk.classpath.11"/>
+  
+  
+  <!-- Global Libraries -->
   <!-- Register Custom Compiler Taskdefs -->
   <property name="javac2.home" value="${idea.home}/lib"/>
   <path id="javac2.classpath">
@@ -239,5 +242,31 @@
   
   <target name="build.modules" depends="init, clean, compile.module.first-kraken" description="build all modules"/>
   
-  <target name="all" depends="build.modules" description="build all"/>
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.first-kraken:jar" value="${basedir}/out/artifacts/First_Kraken_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.First-Kraken.jar" value="${artifacts.temp.dir}/First-Kraken.jar"/>
+  </target>
+  
+  <target name="artifact.first-kraken:jar" depends="init.artifacts, compile.module.first-kraken" description="Build &#39;First-Kraken:jar&#39; artifact">
+    <property name="artifact.temp.output.first-kraken:jar" value="${artifacts.temp.dir}/First_Kraken_jar"/>
+    <mkdir dir="${artifact.temp.output.first-kraken:jar}"/>
+    <jar destfile="${temp.jar.path.First-Kraken.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${first-kraken.output.dir}"/>
+    </jar>
+    <copy file="${temp.jar.path.First-Kraken.jar}" tofile="${artifact.temp.output.first-kraken:jar}/First-Kraken.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.first-kraken:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.first-kraken:jar}"/>
+    <copy todir="${artifact.output.first-kraken:jar}">
+      <fileset dir="${artifact.temp.output.first-kraken:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
 </project>
