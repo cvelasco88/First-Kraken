@@ -9,30 +9,19 @@ description: |
   store.
 
 grade: stable # must be 'stable' to release into candidate/stable channels
-confinement: strict # use 'strict' once you have the right plugs and slots
+confinement: strict
 
 apps:
-  kraken-hello-world-hollowsaibot:
-    command: MakeFile.sh
+  hellod:
+    command: bin/FirstKraken.sh
+    plugs:
+    - x11
 
 parts:
-  my-service:
-    plugin: dump
-    source: out/
-  kraken-hello-world-hollowsaibot:
-    # See 'snapcraft plugins'
-    plugin: autotools
-    source: .
-    override-build: |
-      export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
-    build-packages:
-      - openjdk-8-jdk
-      - openjdk-8-jre
-  # It will copy wallpaperdownloader script into /bin/
-  # This script contains all the commands needed (sets env variables, launches the jar file...) to
-  # execute the application
-  wrapper:
+  first-kraken:
     plugin: dump
     source: .
     organize:
-      /MakeFile.sh: bin/MakeFile.sh
+      ./FirstKraken.sh: bin/FirstKraken.sh
+      ./out/artifacts/First_Kraken_jar/First-Kraken.jar: bin/app.jar
+    stage-packages: [openjdk-8-jre]

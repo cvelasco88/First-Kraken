@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="First-Kraken:jar">
+  <artifact type="jar" build-on-make="true" name="First-Kraken:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/First_Kraken_jar</output-path>
     <root id="archive" name="First-Kraken.jar">
       <element id="module-output" name="First-Kraken" />
